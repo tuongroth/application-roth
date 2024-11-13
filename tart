@@ -1,0 +1,81 @@
+[33mcommit ff554354f622a2254ea60a3ef368d30b0baabf4d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: tuongroth <44430600+tuongroth@users.noreply.github.com>
+Date:   Thu Nov 7 21:04:33 2024 +0200
+
+    Fixed line ending warnings
+
+.vscode/launch.json
+rate-repository-app/eslint.config.mjs
+rate-repository-app/react-app/.gitignore
+rate-repository-app/react-app/README.md
+rate-repository-app/react-app/app-example/(tabs)/_layout.tsx
+rate-repository-app/react-app/app-example/(tabs)/explore.tsx
+rate-repository-app/react-app/app-example/(tabs)/index.tsx
+rate-repository-app/react-app/app-example/+html.tsx
+rate-repository-app/react-app/app-example/+not-found.tsx
+rate-repository-app/react-app/app-example/_layout.tsx
+rate-repository-app/react-app/app.json
+rate-repository-app/react-app/app/_layout.tsx
+rate-repository-app/react-app/app/index.tsx
+rate-repository-app/react-app/assets/fonts/SpaceMono-Regular.ttf
+rate-repository-app/react-app/assets/images/adaptive-icon.png
+rate-repository-app/react-app/assets/images/favicon.png
+rate-repository-app/react-app/assets/images/icon.png
+rate-repository-app/react-app/assets/images/partial-react-logo.png
+rate-repository-app/react-app/assets/images/react-logo.png
+rate-repository-app/react-app/assets/images/react-logo@2x.png
+rate-repository-app/react-app/assets/images/react-logo@3x.png
+rate-repository-app/react-app/assets/images/splash.png
+rate-repository-app/react-app/babel.config.js
+rate-repository-app/react-app/components/Collapsible.tsx
+rate-repository-app/react-app/components/ExternalLink.tsx
+rate-repository-app/react-app/components/HelloWave.tsx
+rate-repository-app/react-app/components/ParallaxScrollView.tsx
+rate-repository-app/react-app/components/RepositoryItem.tsx
+rate-repository-app/react-app/components/RepositoryList.tsx
+rate-repository-app/react-app/components/ThemedText.tsx
+rate-repository-app/react-app/components/ThemedView.tsx
+rate-repository-app/react-app/components/__tests__/ThemedText-test.tsx
+rate-repository-app/react-app/components/__tests__/__snapshots__/ThemedText-test.tsx.snap
+rate-repository-app/react-app/components/navigation/TabBarIcon.tsx
+rate-repository-app/react-app/constants/Colors.ts
+rate-repository-app/react-app/hooks/useColorScheme.ts
+rate-repository-app/react-app/hooks/useColorScheme.web.ts
+rate-repository-app/react-app/hooks/useThemeColor.ts
+rate-repository-app/react-app/package-lock.json
+rate-repository-app/react-app/package.json
+rate-repository-app/react-app/scripts/reset-project.js
+rate-repository-app/react-app/tsconfig.json
+
+[33mcommit f406cf96f41ae606379d3a79539f04c63420c271[m
+Author: tuongroth <44430600+tuongroth@users.noreply.github.com>
+Date:   Thu Nov 7 12:33:50 2024 +0200
+
+    Set up ESLint and fix linting issues
+
+.eslintrc.js
+
+[33mcommit 40894340183ccf44c372d7e94f0c668541a23a51[m
+Author: tuongroth <44430600+tuongroth@users.noreply.github.com>
+Date:   Thu Nov 7 09:47:58 2024 +0200
+
+    Initial commit
+
+rate-repository-app/.gitignore
+rate-repository-app/App.js
+rate-repository-app/app.json
+rate-repository-app/assets/adaptive-icon.png
+rate-repository-app/assets/favicon.png
+rate-repository-app/assets/icon.png
+rate-repository-app/assets/splash.png
+rate-repository-app/babel.config.js
+rate-repository-app/package-lock.json
+rate-repository-app/package.json
+
+[33mcommit 11a900805658c7549bbffa6eebc51c3e98b2be2f[m
+Author: tuongroth <44430600+tuongroth@users.noreply.github.com>
+Date:   Tue Nov 5 20:09:47 2024 +0200
+
+    Initial commit
+
+README.md

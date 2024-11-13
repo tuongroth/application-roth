@@ -1,6 +1,8 @@
-import React from 'react';
-import Main from './src/components/Main';  // Import Main component from src/components
+import Main from './src/components/Main';
 
-export default function App() {
-  return <Main />;  // Load the Main component
-}
+
+const App = () => {
+  return <Main />;
+};
+
+export default App;
