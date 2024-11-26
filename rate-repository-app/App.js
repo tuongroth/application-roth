@@ -1,20 +1,7 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import RepositoryList from './components/RepositoryList';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+import Main from './src/components/Main';
 
 const App = () => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <RepositoryList />
-    </SafeAreaView>
-  );
+  return <Main />;
 };
 
 export default App;
