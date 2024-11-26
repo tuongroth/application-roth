@@ -1,20 +1,20 @@
-import Constants from 'expo-constants';
-import { Text, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import RepositoryList from './components/RepositoryList';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
-    flexGrow: 1,
-    flexShrink: 1,
+    flex: 1,
+    backgroundColor: '#fff',
   },
 });
 
-const Main = () => {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Rate Repository Application</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <RepositoryList />
+    </SafeAreaView>
   );
 };
 
-export default Main;
+export default App;

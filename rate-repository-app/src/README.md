@@ -48,3 +48,10 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Saving editors with unsaved changes is taking a bit longer...
+Saving editors with unsaved changes is taking a bit longer...The git repository at "c:\Users\HP" has too many active changes, only a subset of Git features will be enabled. Would you like to add "node_modules" to .gitignore?
+
+h ms nho m de caái setup destination o do bieu s
+
+
+If your Git repository is tracking 10,000+ files, this is indeed excessive and can severely impact performance. 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Constants from 'expo-constants';
 import { StyleSheet, View, Text } from 'react-native';
-import RepositoryList from './app-example/RepositoryList';  // Import RepositoryList
+import RepositoryList from './RepositoryList';  // Import RepositoryList
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 const Index = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Rate Repository Application</Text>
+      <Text style={styles.headerText}>Rate Repplication</Text>
       <RepositoryList />  {/* Render the RepositoryList component */}
     </View>
   );
