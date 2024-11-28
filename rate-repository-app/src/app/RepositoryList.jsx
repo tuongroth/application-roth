@@ -1,13 +1,29 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
-import RepositoryItem from './RepositoryItem';
+import { FlatList, View, Text, StyleSheet } from 'react-native';
 
+// Styles
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+    flexGrow: 1,
+    flexShrink: 1,
+    padding: 10,
+  },
   separator: {
     height: 10,
   },
+  item: {
+    padding: 10,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  title: {
+    fontWeight: 'bold',
+  },
 });
 
+// Mock Data
 const repositories = [
   {
     id: 'jaredpalmer.formik',
@@ -18,7 +34,6 @@ const repositories = [
     stargazersCount: 21553,
     ratingAverage: 88,
     reviewCount: 4,
-    ownerAvatarUrl: 'https://avatars2.githubusercontent.com/u/4060187?v=4',
   },
   {
     id: 'rails.rails',
@@ -29,7 +44,6 @@ const repositories = [
     stargazersCount: 45377,
     ratingAverage: 100,
     reviewCount: 2,
-    ownerAvatarUrl: 'https://avatars1.githubusercontent.com/u/4223?v=4',
   },
   {
     id: 'django.django',
@@ -40,32 +54,47 @@ const repositories = [
     stargazersCount: 48496,
     ratingAverage: 73,
     reviewCount: 5,
-    ownerAvatarUrl: 'https://avatars2.githubusercontent.com/u/27804?v=4',
-  },
-  {
-    id: 'reduxjs.redux',
-    fullName: 'reduxjs/redux',
-    description: 'Predictable state container for JavaScript apps',
-    language: 'TypeScript',
-    forksCount: 13902,
-    stargazersCount: 52869,
-    ratingAverage: 0,
-    reviewCount: 0,
-    ownerAvatarUrl: 'https://avatars3.githubusercontent.com/u/13142323?v=4',
   },
 ];
 
+// ItemSeparator Component
 const ItemSeparator = () => <View style={styles.separator} />;
 
+// RepositoryItem Component
+const RepositoryItem = ({ repository }) => {
+  return (
+    <View style={styles.item}>
+      <Text style={styles.title}>{repository.fullName}</Text>
+      <Text>{repository.description}</Text>
+      <Text>Language: {repository.language}</Text>
+      <Text>Forks: {repository.forksCount}</Text>
+      <Text>Stars: {repository.stargazersCount}</Text>
+      <Text>Rating: {repository.ratingAverage}</Text>
+      <Text>Reviews: {repository.reviewCount}</Text>
+    </View>
+  );
+};
+
+// RepositoryList Component
 const RepositoryList = () => {
   return (
     <FlatList
       data={repositories}
+      renderItem={({ item }) => <RepositoryItem repository={item} />}
       ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <RepositoryItem item={item} />}
       keyExtractor={(item) => item.id}
     />
   );
 };
 
-export default RepositoryList;
+// Main Component
+const Main = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Repository Application Feedback</Text>
+      <RepositoryList />
+    </View>
+  );
+};
+
+export default Main;
