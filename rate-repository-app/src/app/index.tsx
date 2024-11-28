@@ -19,34 +19,56 @@ const AppBar = ({ onTabChange }) => {
   );
 };
 
-// SignIn Component
+// SignIn Component with validation
 const SignIn = () => {
   const [username, setUsername] = useState('');  // State for username
   const [password, setPassword] = useState('');  // State for password
+  const [errors, setErrors] = useState({});  // State for validation errors
+
+  // Validate the form fields
+  const validate = () => {
+    const newErrors = {};
+    if (!username) {
+      newErrors.username = 'Username is required';
+    }
+
+    if (!password) {
+      newErrors.password = 'Password is required';
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;  // If no errors, form is valid
+  };
 
   // onSubmit function logs the values of the form when submitted
   const onSubmit = () => {
-    console.log({ username, password });
+    if (validate()) {
+      console.log({ username, password });
+    }
   };
 
   return (
     <View style={styles.signInContainer}>
       {/* Username Field */}
       <TextInput
-        style={styles.input}
+        style={[styles.input, errors.username && styles.inputError]}
         placeholder="Username"
         onChangeText={setUsername}
         value={username}
       />
+      {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
 
       {/* Password Field */}
       <TextInput
-        style={styles.input}
+        style={[styles.input, errors.password && styles.inputError]}
         placeholder="Password"
         secureTextEntry
         onChangeText={setPassword}
         value={password}
       />
+      {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
       {/* Submit Button */}
       <Button title="Sign In" onPress={onSubmit} />
@@ -109,6 +131,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+  inputError: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginBottom: 10,
+  },
 });
 
 export default Main;
+
