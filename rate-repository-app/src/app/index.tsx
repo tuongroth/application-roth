@@ -1,30 +1,60 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, Button } from 'react-native';
 import Constants from 'expo-constants';
-import RepositoryList from './RepositoryList';  // Import RepositoryList
+
+// Importing RepositoryList Component
+import RepositoryList from './RepositoryList';  // Ensure that this path is correct
 
 // AppBar Component (with tabs)
 const AppBar = ({ onTabChange }) => {
   return (
     <View style={styles.appBar}>
-      <Button title="Repositories" onPress={() => onTabChange('Repositories')} />
-      <Button title="Sign In" onPress={() => onTabChange('SignIn')} />
+      <TouchableOpacity onPress={() => onTabChange('Repositories')}>
+        <Text style={styles.tabText}>Repositories</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => onTabChange('SignIn')}>
+        <Text style={styles.tabText}>Sign In</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 // SignIn Component
 const SignIn = () => {
+  const [username, setUsername] = useState('');  // State for username
+  const [password, setPassword] = useState('');  // State for password
+
+  // onSubmit function logs the values of the form when submitted
+  const onSubmit = () => {
+    console.log({ username, password });
+  };
+
   return (
     <View style={styles.signInContainer}>
-      <TextInput style={styles.input} placeholder="Username" />
-      <TextInput style={styles.input} placeholder="Password" secureTextEntry />
-      <Button title="Sign In" onPress={() => {}} />
+      {/* Username Field */}
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        onChangeText={setUsername}
+        value={username}
+      />
+
+      {/* Password Field */}
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry
+        onChangeText={setPassword}
+        value={password}
+      />
+
+      {/* Submit Button */}
+      <Button title="Sign In" onPress={onSubmit} />
     </View>
   );
 };
 
-// Main Component
+// Main Component (which includes AppBar and conditional rendering of tabs)
 const Main = () => {
   const [activeTab, setActiveTab] = useState('SignIn');  // Default tab is SignIn
 
@@ -58,6 +88,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  tabText: {
+    color: '#ffffff',
+    fontSize: 18,
+    padding: 10,
   },
   container: {
     flexGrow: 1,
