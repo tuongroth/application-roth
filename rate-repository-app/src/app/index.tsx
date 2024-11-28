@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, Button } from 'react-native';
 import Constants from 'expo-constants';
 
-// Importing RepositoryList Component
-import RepositoryList from './RepositoryList';  // Ensure that this path is correct
+// Importing RepositoryList and RepositoryItem Components
+import RepositoryList from './RepositoryList';  // List of repositories
+import RepositoryItem from './RepositoryItem';  // Single repository item
 
 // AppBar Component (with tabs)
 const AppBar = ({ onTabChange }) => {
@@ -11,6 +12,9 @@ const AppBar = ({ onTabChange }) => {
     <View style={styles.appBar}>
       <TouchableOpacity onPress={() => onTabChange('Repositories')}>
         <Text style={styles.tabText}>Repositories</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => onTabChange('RepositoryList')}>
+        <Text style={styles.tabText}>Repository List</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => onTabChange('SignIn')}>
         <Text style={styles.tabText}>Sign In</Text>
@@ -95,6 +99,12 @@ const Main = () => {
         <View style={styles.container}>
           {/* Render RepositoryList Component when Repositories tab is active */}
           <RepositoryList />
+        </View>
+      )}
+      {activeTab === 'RepositoryList' && (
+        <View style={styles.container}>
+          {/* Render a single RepositoryItem when Repository List tab is active */}
+          <RepositoryItem />
         </View>
       )}
     </View>
