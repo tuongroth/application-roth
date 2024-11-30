@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 
+// Sample data for repository and reviews
 const data = [
   {
     id: '1',
@@ -15,6 +16,29 @@ const data = [
   },
 ];
 
+const reviews = [
+  {
+    id: '1',
+    rating: 90,
+    createdAt: '2024-10-31',
+  },
+  {
+    id: '2',
+    rating: 85,
+    createdAt: '2024-10-18',
+  },
+  {
+    id: '3',
+    rating: 95,
+    createdAt: '2024-10-22',
+  },
+  {
+    id: '4',
+    rating: 70,
+    createdAt: '2024-08-24',
+  },
+];
+
 // Helper function to format numbers over 1000 to use "k"
 const formatCount = (count) => {
   if (count >= 1000) {
@@ -23,6 +47,7 @@ const formatCount = (count) => {
   return count.toString();
 };
 
+// Repository's information component
 const RepositoryItem = ({ item }) => (
   <View style={styles.itemContainer}>
     <View style={styles.avatarContainer}>
@@ -59,21 +84,74 @@ const RepositoryItem = ({ item }) => (
   </View>
 );
 
-const RepositoryList = () => (
-  <FlatList
-    data={data}
-    renderItem={({ item }) => <RepositoryItem item={item} />}
-    keyExtractor={(item) => item.id}
-    style={styles.list}
-  />
-);
-
-const SingleRepository = () => (
-  <View style={styles.container}>
-    {/* Render the RepositoryList component */}
-    <RepositoryList />
+// Single review item component
+const ReviewItem = ({ review, onDelete, onRedButtonPress }) => (
+  <View style={styles.reviewItem}>
+    <View style={styles.ratingContainer}>
+      <Text style={styles.ratingText}>{review.rating}</Text>
+    </View>
+    <View style={styles.reviewContent}>
+      {/* Removed user name and review text */}
+      <Text style={styles.createdAt}>Reviewed on {review.createdAt}</Text>
+    </View>
+    {/* Buttons under the review content */}
+    <View style={styles.buttonContainer}>
+      {/* Blue button */}
+      <TouchableOpacity style={styles.button} onPress={onDelete}>
+        <Text style={styles.buttonText}>Delete Review</Text>
+      </TouchableOpacity>
+      {/* Red button */}
+      <TouchableOpacity style={styles.redButton} onPress={onRedButtonPress}>
+        <Text style={styles.buttonText}>Red Button</Text>
+      </TouchableOpacity>
+    </View>
   </View>
 );
+
+// Main FlatList component for Repository and Reviews
+const SingleRepository = () => {
+  const handleDeleteReview = (reviewId) => {
+    Alert.alert(
+      'Confirm Deletion',
+      'Are you sure you want to delete this review?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          onPress: () => {
+            console.log(`Deleted review with ID: ${reviewId}`);
+          },
+        },
+      ]
+    );
+  };
+
+  const handleRedButtonPress = (reviewId) => {
+    console.log(`Red button pressed for review with ID: ${reviewId}`);
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Render the Repository List */}
+      <RepositoryItem item={data[0]} />
+      
+      {/* Render reviews */}
+      <Text style={styles.reviewsHeader}>Reviews:</Text>
+      <FlatList
+        data={reviews}
+        renderItem={({ item }) => (
+          <ReviewItem
+            review={item}
+            onDelete={() => handleDeleteReview(item.id)}
+            onRedButtonPress={() => handleRedButtonPress(item.id)}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -157,6 +235,61 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 10,
+  },
+  reviewItem: {
+    padding: 10,
+    backgroundColor: '#f9f9f9',
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  ratingContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#0366d6',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ratingText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  reviewContent: {
+    marginTop: 10,
+  },
+  createdAt: {
+    fontSize: 14,
+    color: 'gray',
+  },
+  buttonContainer: {
+    marginTop: 10,
+  },
+  reviewsHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  // Unified button style
+  button: {
+    backgroundColor: '#0366d6', // Blue color for the button
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 10, // Space between the buttons
+  },
+  buttonText: {
+    color: '#fff', // White text on blue background
+    fontWeight: 'bold',
+  },
+  // New red button style
+  redButton: {
+    backgroundColor: '#e74c3c', // Red color for the button
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: 'center',
   },
 });
 
