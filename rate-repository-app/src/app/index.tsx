@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, Button } from 'react-native';
 import Constants from 'expo-constants';
 
-// Importing RepositoryList and RepositoryItem Components
-import RepositoryList from './RepositoryList';  // List of repositories
-import RepositoryItem from './RepositoryItem';  // Single repository item
+import RepositoryList from './RepositoryList'; 
+import RepositoryItem from './RepositoryItem';
+import SingleRepository from './SingleRepository';
 
-// AppBar Component (with tabs)
 const AppBar = ({ onTabChange }) => {
   return (
     <View style={styles.appBar}>
@@ -19,34 +18,32 @@ const AppBar = ({ onTabChange }) => {
       <TouchableOpacity onPress={() => onTabChange('SignIn')}>
         <Text style={styles.tabText}>Sign In</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => onTabChange('SingleRepository')}>
+        <Text style={styles.tabText}>Single Repository</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-// SignIn Component with validation
 const SignIn = () => {
-  const [username, setUsername] = useState('');  // State for username
-  const [password, setPassword] = useState('');  // State for password
-  const [errors, setErrors] = useState({});  // State for validation errors
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
 
-  // Validate the form fields
   const validate = () => {
     const newErrors = {};
     if (!username) {
       newErrors.username = 'Username is required';
     }
-
     if (!password) {
       newErrors.password = 'Password is required';
     } else if (password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
-
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;  // If no errors, form is valid
+    return Object.keys(newErrors).length === 0;
   };
 
-  // onSubmit function logs the values of the form when submitted
   const onSubmit = () => {
     if (validate()) {
       console.log({ username, password });
@@ -55,7 +52,6 @@ const SignIn = () => {
 
   return (
     <View style={styles.signInContainer}>
-      {/* Username Field */}
       <TextInput
         style={[styles.input, errors.username && styles.inputError]}
         placeholder="Username"
@@ -64,7 +60,6 @@ const SignIn = () => {
       />
       {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
 
-      {/* Password Field */}
       <TextInput
         style={[styles.input, errors.password && styles.inputError]}
         placeholder="Password"
@@ -74,22 +69,19 @@ const SignIn = () => {
       />
       {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
-      {/* Submit Button */}
-      <Button title="Sign In" onPress={onSubmit} />
+      <TouchableOpacity style={styles.signInButton} onPress={onSubmit}>
+        <Text style={styles.signInButtonText}>Sign In</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-// Main Component (which includes AppBar and conditional rendering of tabs)
 const Main = () => {
-  const [activeTab, setActiveTab] = useState('SignIn');  // Default tab is SignIn
+  const [activeTab, setActiveTab] = useState('SignIn');
 
   return (
     <View style={{ flex: 1 }}>
-      {/* AppBar with tabs */}
       <AppBar onTabChange={setActiveTab} />
-
-      {/* Conditional rendering based on active tab */}
       {activeTab === 'SignIn' && (
         <View style={styles.container}>
           <SignIn />
@@ -97,21 +89,23 @@ const Main = () => {
       )}
       {activeTab === 'Repositories' && (
         <View style={styles.container}>
-          {/* Render RepositoryList Component when Repositories tab is active */}
           <RepositoryList />
         </View>
       )}
       {activeTab === 'RepositoryList' && (
         <View style={styles.container}>
-          {/* Render a single RepositoryItem when Repository List tab is active */}
           <RepositoryItem />
+        </View>
+      )}
+      {activeTab === 'SingleRepository' && (
+        <View style={styles.container}>
+          <SingleRepository />
         </View>
       )}
     </View>
   );
 };
 
-// Styles
 const styles = StyleSheet.create({
   appBar: {
     backgroundColor: '#24292e',
@@ -149,7 +143,18 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 10,
   },
+  signInButton: {
+    backgroundColor: '#0366d6', // Blue color matching the language tag
+    paddingVertical: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  signInButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
 
 export default Main;
-
