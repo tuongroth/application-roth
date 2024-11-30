@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, Button } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Constants from 'expo-constants';
 
 import RepositoryList from './RepositoryList'; 
 import RepositoryItem from './RepositoryItem';
 import SingleRepository from './SingleRepository';
+import CreateReview from './CreateReview'; // Import the updated CreateReview component
 
 const AppBar = ({ onTabChange }) => {
   return (
@@ -21,10 +22,14 @@ const AppBar = ({ onTabChange }) => {
       <TouchableOpacity onPress={() => onTabChange('SingleRepository')}>
         <Text style={styles.tabText}>Single Repository</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => onTabChange('CreateReview')}>
+        <Text style={styles.tabText}>Create Review</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
+// SignIn Form Component
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -46,7 +51,8 @@ const SignIn = () => {
 
   const onSubmit = () => {
     if (validate()) {
-      console.log({ username, password });
+      Alert.alert('Sign In Successful', `Welcome, ${username}!`);
+      // Here you can handle the successful login, like navigating to the dashboard
     }
   };
 
@@ -84,7 +90,7 @@ const Main = () => {
       <AppBar onTabChange={setActiveTab} />
       {activeTab === 'SignIn' && (
         <View style={styles.container}>
-          <SignIn />
+          <SignIn /> {/* Display SignIn component */}
         </View>
       )}
       {activeTab === 'Repositories' && (
@@ -100,6 +106,11 @@ const Main = () => {
       {activeTab === 'SingleRepository' && (
         <View style={styles.container}>
           <SingleRepository />
+        </View>
+      )}
+      {activeTab === 'CreateReview' && (
+        <View style={styles.container}>
+          <CreateReview /> {/* Display CreateReview component */}
         </View>
       )}
     </View>
@@ -127,6 +138,7 @@ const styles = StyleSheet.create({
   },
   signInContainer: {
     padding: 20,
+    backgroundColor: '#ffffff',
   },
   input: {
     height: 40,
@@ -144,7 +156,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   signInButton: {
-    backgroundColor: '#0366d6', // Blue color matching the language tag
+    backgroundColor: '#0366d6', // Blue color
     paddingVertical: 10,
     borderRadius: 5,
     alignItems: 'center',
