@@ -1,142 +1,63 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import Constants from 'expo-constants';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
-import RepositoryList from './RepositoryList'; 
-import RepositoryItem from './RepositoryItem';
-import SingleRepository from './SingleRepository';
-import CreateReview from './CreateReview'; // Import the updated CreateReview component
+const CreateReview = () => {
+  const [ownerName, setOwnerName] = useState('');
+  const [repositoryName, setRepositoryName] = useState('');
+  const [rating, setRating] = useState('');
+  const [text, setText] = useState('');
 
-const AppBar = ({ onTabChange }) => {
-  return (
-    <View style={styles.appBar}>
-      <TouchableOpacity onPress={() => onTabChange('Repositories')}>
-        <Text style={styles.tabText}>Repositories</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onTabChange('RepositoryList')}>
-        <Text style={styles.tabText}>Repository List</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onTabChange('SignIn')}>
-        <Text style={styles.tabText}>Sign In</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onTabChange('SingleRepository')}>
-        <Text style={styles.tabText}>Single Repository</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onTabChange('CreateReview')}>
-        <Text style={styles.tabText}>Create Review</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-// SignIn Form Component
-const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
-
-  const validate = () => {
-    const newErrors = {};
-    if (!username) {
-      newErrors.username = 'Username is required';
+  const handleSubmit = () => {
+    if (!ownerName || !repositoryName || !rating || !text) {
+      Alert.alert('Error', 'Please fill in all fields.');
+      return;
     }
-    if (!password) {
-      newErrors.password = 'Password is required';
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
-  const onSubmit = () => {
-    if (validate()) {
-      Alert.alert('Sign In Successful', `Welcome, ${username}!`);
-      // Here you can handle the successful login, like navigating to the dashboard
-    }
+    // You can handle the review submission here (e.g., send to an API)
+    Alert.alert('Review Submitted', `Review for ${repositoryName} by ${ownerName} submitted with rating: ${rating}`);
+
+    // Reset form fields after submission
+    setOwnerName('');
+    setRepositoryName('');
+    setRating('');
+    setText('');
   };
 
   return (
-    <View style={styles.signInContainer}>
+    <View style={styles.formContainer}>
       <TextInput
-        style={[styles.input, errors.username && styles.inputError]}
-        placeholder="Username"
-        onChangeText={setUsername}
-        value={username}
+        placeholder="Repository owner's GitHub username"
+        value={ownerName}
+        onChangeText={setOwnerName}
+        style={styles.input}
       />
-      {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
-
       <TextInput
-        style={[styles.input, errors.password && styles.inputError]}
-        placeholder="Password"
-        secureTextEntry
-        onChangeText={setPassword}
-        value={password}
+        placeholder="Repository name"
+        value={repositoryName}
+        onChangeText={setRepositoryName}
+        style={styles.input}
       />
-      {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
-
-      <TouchableOpacity style={styles.signInButton} onPress={onSubmit}>
-        <Text style={styles.signInButtonText}>Sign In</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const Main = () => {
-  const [activeTab, setActiveTab] = useState('SignIn');
-
-  return (
-    <View style={{ flex: 1 }}>
-      <AppBar onTabChange={setActiveTab} />
-      {activeTab === 'SignIn' && (
-        <View style={styles.container}>
-          <SignIn /> {/* Display SignIn component */}
-        </View>
-      )}
-      {activeTab === 'Repositories' && (
-        <View style={styles.container}>
-          <RepositoryList />
-        </View>
-      )}
-      {activeTab === 'RepositoryList' && (
-        <View style={styles.container}>
-          <RepositoryItem />
-        </View>
-      )}
-      {activeTab === 'SingleRepository' && (
-        <View style={styles.container}>
-          <SingleRepository />
-        </View>
-      )}
-      {activeTab === 'CreateReview' && (
-        <View style={styles.container}>
-          <CreateReview /> {/* Display CreateReview component */}
-        </View>
-      )}
+      <TextInput
+        placeholder="Rating (0-100)"
+        value={rating}
+        onChangeText={setRating}
+        keyboardType="numeric"
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Review"
+        value={text}
+        onChangeText={setText}
+        multiline
+        style={[styles.input, { height: 100 }]}
+      />
+      <Button title="Submit Review" onPress={handleSubmit} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  appBar: {
-    backgroundColor: '#24292e',
-    paddingTop: Constants.statusBarHeight,
-    paddingBottom: 10,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  tabText: {
-    color: '#ffffff',
-    fontSize: 18,
-    padding: 10,
-  },
-  container: {
-    flexGrow: 1,
-    flexShrink: 1,
-    backgroundColor: '#e1e4e8',
-  },
-  signInContainer: {
+  formContainer: {
     padding: 20,
     backgroundColor: '#ffffff',
   },
@@ -147,26 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
-  inputError: {
-    borderColor: 'red',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 12,
-    marginBottom: 10,
-  },
-  signInButton: {
-    backgroundColor: '#0366d6', // Blue color
-    paddingVertical: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  signInButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
 });
 
-export default Main;
+export default CreateReview;
+
